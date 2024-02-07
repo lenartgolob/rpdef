@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  rpdef-db:
+    image: mysql:8.0.17
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: rpdef
+    ports:
+      - "3308:3306"
+    volumes:
+      - ./db.sql:/docker-entrypoint-initdb.d/db.sql

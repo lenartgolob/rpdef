@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  rpdef-api:
+    build: .
+    ports:
+      - "443:443"
+    environment:
+      MYSQL_HOST: rpdef-db
+      MYSQL_USER: root
+      MYSQL_PASSWORD: password
+      MYSQL_PORT: 3306
+      MYSQL_DB: rpdef
