@@ -3,6 +3,7 @@ from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.options import Options
 import requests
 
 def get_pbp_stats(season):
@@ -39,8 +40,10 @@ def get_pbp_stats(season):
 def traditional_stats(season):
     url = 'https://www.nba.com/stats/players/traditional?Season=' + season
 
+    options = Options()
+    options.add_argument('--no-sandbox')
     driver = webdriver.Chrome(service=ChromeService(
-        ChromeDriverManager().install()))
+        ChromeDriverManager().install()), options=options)
 
     driver.get(url)
 
@@ -81,8 +84,10 @@ def traditional_stats(season):
 def team_defenses(season):
     url = 'https://www.nba.com/stats/teams/defense?Season=' + season
 
+    options = Options()
+    options.add_argument('--no-sandbox')
     driver = webdriver.Chrome(service=ChromeService(
-        ChromeDriverManager().install()))
+        ChromeDriverManager().install()), options=options)
 
     driver.get(url)
 
@@ -183,8 +188,10 @@ def defense_dash_overall(pbp_stats, season):
     # Defense dash for greater than 15
     url = 'https://www.nba.com/stats/players/defense-dash-overall?Season=' + season
 
+    options = Options()
+    options.add_argument('--no-sandbox')
     driver = webdriver.Chrome(service=ChromeService(
-        ChromeDriverManager().install()))
+        ChromeDriverManager().install()), options=options)
 
     driver.get(url)
 
@@ -224,8 +231,10 @@ def defense_dash_lt10(pbp_stats, season):
     # Less than 10 foot
     url = 'https://www.nba.com/stats/players/defense-dash-lt10?Season=' + season
 
+    options = Options()
+    options.add_argument('--no-sandbox')
     driver = webdriver.Chrome(service=ChromeService(
-        ChromeDriverManager().install()))
+        ChromeDriverManager().install()), options=options)
 
     driver.get(url)
 
