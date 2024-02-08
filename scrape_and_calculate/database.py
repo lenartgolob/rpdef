@@ -1,9 +1,9 @@
 import mysql.connector
 import json
 from nba_api.stats.static import players
+import subprocess
 
 def connect_to_db():
-    data = json.load(open('db.json'))
     return mysql.connector.connect(
         host="rpdef-db",
         user="root",
@@ -75,3 +75,4 @@ def update(traditional, lt10, gt10, player_positions, season):
                 val.append(player_api[0]['id'])
                 mycursor.execute(sql, val)
                 mydb.commit()
+    subprocess.run(['mysqldump', '-u', 'username', '-ppassword', 'rpdef', 'player', '--result-file=db.sql'])
