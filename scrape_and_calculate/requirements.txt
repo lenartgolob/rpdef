@@ -6,3 +6,4 @@ numpy==1.24.2
 pandas==1.5.3
 nba-api==1.2
 webdriver-manager==4.0.1
+fake-headers==1.0.2

@@ -4,6 +4,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
+from fake_headers import Headers
 import requests
 
 def get_pbp_stats(season):
@@ -40,10 +41,8 @@ def get_pbp_stats(season):
 def traditional_stats(season):
     url = 'https://www.nba.com/stats/players/traditional?Season=' + season
 
-    options = Options()
-    options.add_argument('--no-sandbox')
     driver = webdriver.Chrome(service=ChromeService(
-        ChromeDriverManager().install()), options=options)
+        ChromeDriverManager().install()), options=get_driver_options())
 
     driver.get(url)
 
@@ -83,11 +82,9 @@ def traditional_stats(season):
 
 def team_defenses(season):
     url = 'https://www.nba.com/stats/teams/defense?Season=' + season
-
-    options = Options()
-    options.add_argument('--no-sandbox')
+  
     driver = webdriver.Chrome(service=ChromeService(
-        ChromeDriverManager().install()), options=options)
+        ChromeDriverManager().install()), options=get_driver_options())
 
     driver.get(url)
 
@@ -188,10 +185,8 @@ def defense_dash_overall(pbp_stats, season):
     # Defense dash for greater than 15
     url = 'https://www.nba.com/stats/players/defense-dash-overall?Season=' + season
 
-    options = Options()
-    options.add_argument('--no-sandbox')
     driver = webdriver.Chrome(service=ChromeService(
-        ChromeDriverManager().install()), options=options)
+        ChromeDriverManager().install()), options=get_driver_options())
 
     driver.get(url)
 
@@ -231,10 +226,8 @@ def defense_dash_lt10(pbp_stats, season):
     # Less than 10 foot
     url = 'https://www.nba.com/stats/players/defense-dash-lt10?Season=' + season
 
-    options = Options()
-    options.add_argument('--no-sandbox')
     driver = webdriver.Chrome(service=ChromeService(
-        ChromeDriverManager().install()), options=options)
+        ChromeDriverManager().install()), options=get_driver_options())
 
     driver.get(url)
 
@@ -270,3 +263,16 @@ def defense_dash_lt10(pbp_stats, season):
     header = ['Player', 'Team', 'Age', 'Position', 'GP', 'Games', 'FREQ%', 'DFGM', 'DFGA', 'DFG%', 'FG%', 'DIFF%', "MP", "BLKR"]
     return header, defense_dash_lt10
 
+def get_driver_options():
+    header = Headers(
+        browser="chrome",  # Generate only Chrome UA
+        os="win",  # Generate only Windows platform
+        headers=False # generate misc headers
+    )
+    options = Options()
+    options.add_argument('--headless')  # Runs Chrome in headless mode.
+    options.add_argument('--no-sandbox')  # Bypass OS security model
+    options.add_argument('--disable-dev-shm-usage')  # Overcome limited resource problems
+    customUserAgent = header.generate()['User-Agent']
+    options.add_argument(f"user-agent={customUserAgent}")
+    return options  
