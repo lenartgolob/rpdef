@@ -4,6 +4,8 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from fake_headers import Headers
 import requests
 
@@ -46,6 +48,9 @@ def traditional_stats(season):
 
     driver.get(url)
 
+    # Wait for the table to load
+    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'DropDown_select__4pIg9')))
+
     selects = driver.find_elements(By.CLASS_NAME, "DropDown_select__4pIg9   ")
     for select in selects:
         options = Select(select).options
@@ -54,6 +59,8 @@ def traditional_stats(season):
         if option.text == 'All':
             option.click() # select() in earlier versions of webdriver
             break
+
+    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'Crom_table__p1iZz')))
 
     # Find the table element
     table = driver.find_element(By.CLASS_NAME, 'Crom_table__p1iZz')
@@ -87,6 +94,9 @@ def team_defenses(season):
         ChromeDriverManager().install()), options=get_driver_options())
 
     driver.get(url)
+
+    # Wait for the table to load
+    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'Crom_table__p1iZz')))
 
     # Find the table element
     table = driver.find_element(By.CLASS_NAME, 'Crom_table__p1iZz')
@@ -190,6 +200,8 @@ def defense_dash_overall(pbp_stats, season):
 
     driver.get(url)
 
+    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'DropDown_select__4pIg9')))
+
     selects = driver.find_elements(By.CLASS_NAME, "DropDown_select__4pIg9 ")
     for select in selects:
         options = Select(select).options
@@ -198,6 +210,8 @@ def defense_dash_overall(pbp_stats, season):
         if option.text == 'All':
             option.click() # select() in earlier versions of webdriver
             break
+
+    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'Crom_table__p1iZz')))
 
     # Find the table element
     table = driver.find_element(By.CLASS_NAME, 'Crom_table__p1iZz')
@@ -231,6 +245,8 @@ def defense_dash_lt10(pbp_stats, season):
 
     driver.get(url)
 
+    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'DropDown_select__4pIg9')))
+
     selects = driver.find_elements(By.CLASS_NAME, "DropDown_select__4pIg9 ")
     for select in selects:
         options = Select(select).options
@@ -239,6 +255,8 @@ def defense_dash_lt10(pbp_stats, season):
         if option.text == 'All':
             option.click() # select() in earlier versions of webdriver
             break
+
+    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'Crom_table__p1iZz')))
 
     # Find the table element
     table = driver.find_element(By.CLASS_NAME, 'Crom_table__p1iZz')
