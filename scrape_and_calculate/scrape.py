@@ -52,7 +52,8 @@ def traditional_stats(season):
     try:
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'DropDown_select__4pIg9')))
     except:
-        print(driver.page_source)
+        with open('error_page_source.txt', 'w') as f:
+            f.write(driver.page_source)
 
     selects = driver.find_elements(By.CLASS_NAME, "DropDown_select__4pIg9   ")
     for select in selects:
@@ -66,7 +67,8 @@ def traditional_stats(season):
     try:
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'Crom_table__p1iZz')))
     except:
-        print(driver.page_source)
+        with open('error_page_source.txt', 'w') as f:
+            f.write(driver.page_source)
 
     # Find the table element
     table = driver.find_element(By.CLASS_NAME, 'Crom_table__p1iZz')
@@ -105,7 +107,8 @@ def team_defenses(season):
     try:
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'Crom_table__p1iZz')))
     except:
-        print(driver.page_source)
+        with open('error_page_source.txt', 'w') as f:
+            f.write(driver.page_source)
 
     # Find the table element
     table = driver.find_element(By.CLASS_NAME, 'Crom_table__p1iZz')
@@ -212,7 +215,8 @@ def defense_dash_overall(pbp_stats, season):
     try:
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'DropDown_select__4pIg9')))
     except:
-        print(driver.page_source)
+        with open('error_page_source.txt', 'w') as f:
+            f.write(driver.page_source)
 
     selects = driver.find_elements(By.CLASS_NAME, "DropDown_select__4pIg9 ")
     for select in selects:
@@ -225,7 +229,8 @@ def defense_dash_overall(pbp_stats, season):
     try:
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'Crom_table__p1iZz')))
     except:
-        print(driver.page_source)
+        with open('error_page_source.txt', 'w') as f:
+            f.write(driver.page_source)
 
     # Find the table element
     table = driver.find_element(By.CLASS_NAME, 'Crom_table__p1iZz')
@@ -262,7 +267,8 @@ def defense_dash_lt10(pbp_stats, season):
     try:
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'DropDown_select__4pIg9')))
     except:
-        print(driver.page_source)
+        with open('error_page_source.txt', 'w') as f:
+            f.write(driver.page_source)
 
     selects = driver.find_elements(By.CLASS_NAME, "DropDown_select__4pIg9 ")
     for select in selects:
@@ -276,7 +282,8 @@ def defense_dash_lt10(pbp_stats, season):
     try:
         WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'Crom_table__p1iZz')))
     except:
-        print(driver.page_source)
+        with open('error_page_source.txt', 'w') as f:
+            f.write(driver.page_source)
 
     # Find the table element
     table = driver.find_element(By.CLASS_NAME, 'Crom_table__p1iZz')
