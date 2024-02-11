@@ -321,4 +321,10 @@ def get_driver_options():
 def get_web_driver():
     #driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=get_driver_options())
     driver = webdriver.Chrome("/usr/bin/chromedriver", options=get_driver_options())
+    viewport_size = get_viewport_size(driver)
+    print("Viewport size:", viewport_size)
     return driver
+
+def get_viewport_size(driver):
+    size = driver.execute_script("return [window.innerWidth, window.innerHeight];")
+    return size
