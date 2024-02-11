@@ -43,8 +43,7 @@ def get_pbp_stats(season):
 def traditional_stats(season):
     url = 'https://www.nba.com/stats/players/traditional?Season=' + season
 
-    driver = webdriver.Chrome(service=ChromeService(
-        ChromeDriverManager().install()), options=get_driver_options())
+    driver = get_web_driver()
 
     driver.get(url)
 
@@ -98,8 +97,7 @@ def traditional_stats(season):
 def team_defenses(season):
     url = 'https://www.nba.com/stats/teams/defense?Season=' + season
   
-    driver = webdriver.Chrome(service=ChromeService(
-        ChromeDriverManager().install()), options=get_driver_options())
+    driver = get_web_driver()
 
     driver.get(url)
 
@@ -207,8 +205,7 @@ def defense_dash_overall(pbp_stats, season):
     # Defense dash for greater than 15
     url = 'https://www.nba.com/stats/players/defense-dash-overall?Season=' + season
 
-    driver = webdriver.Chrome(service=ChromeService(
-        ChromeDriverManager().install()), options=get_driver_options())
+    driver = get_web_driver()
 
     driver.get(url)
 
@@ -259,8 +256,7 @@ def defense_dash_lt10(pbp_stats, season):
     # Less than 10 foot
     url = 'https://www.nba.com/stats/players/defense-dash-lt10?Season=' + season
 
-    driver = webdriver.Chrome(service=ChromeService(
-        ChromeDriverManager().install()), options=get_driver_options())
+    driver = get_web_driver()
 
     driver.get(url)
 
@@ -320,4 +316,9 @@ def get_driver_options():
     options.add_argument('--disable-dev-shm-usage')  # Overcome limited resource problems
     customUserAgent = header.generate()['User-Agent']
     options.add_argument(f"user-agent={customUserAgent}")
-    return options  
+    return options
+
+def get_web_driver():
+    #driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=get_driver_options())
+    driver = webdriver.Chrome("/usr/bin/chromedriver", options=get_driver_options())
+    return driver
