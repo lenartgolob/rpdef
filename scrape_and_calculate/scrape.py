@@ -7,6 +7,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from fake_headers import Headers
+from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 import requests
 
 def get_pbp_stats(season):
@@ -305,26 +306,44 @@ def defense_dash_lt10(pbp_stats, season):
     return header, defense_dash_lt10
 
 def get_driver_options():
+    # header = Headers(
+    #     browser="chrome",  # Generate only Chrome UA
+    #     os="win",  # Generate only Windows platform
+    #     headers=False # generate misc headers
+    # )
+    # options = Options()
+    # options.add_argument('--headless')  # Runs Chrome in headless mode.
+    # options.add_argument('--no-sandbox')  # Bypass OS security model
+    # options.add_argument('--disable-dev-shm-usage')  # Overcome limited resource problems
+    # customUserAgent = header.generate()['User-Agent']
+    # options.add_argument(f"user-agent={customUserAgent}")
+    # return options
+    # Define desired capabilities and options
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.add_argument('--headless')  # Run Chrome in headless mode
+    chrome_options.add_argument('--no-sandbox')  # Bypass OS security model
+    chrome_options.add_argument('--disable-dev-shm-usage')  # Overcome limited resource problems
+    #chrome_options.add_argument('--port=5939')  # Use a different port
+    return chrome_options
+
+def get_web_driver():
+    #driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=get_driver_options())
+    #driver = webdriver.Chrome("/usr/bin/chromedriver", options=get_driver_options())
     header = Headers(
         browser="chrome",  # Generate only Chrome UA
         os="win",  # Generate only Windows platform
         headers=False # generate misc headers
     )
-    options = Options()
-    options.add_argument('--headless')  # Runs Chrome in headless mode.
-    options.add_argument('--no-sandbox')  # Bypass OS security model
-    options.add_argument('--disable-dev-shm-usage')  # Overcome limited resource problems
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.add_argument('--headless')  # Run Chrome in headless mode
+    chrome_options.add_argument('--no-sandbox')
+    chrome_options.add_argument('--disable-dev-shm-usage')
+    chrome_options.add_argument('--disable-gpu')
     customUserAgent = header.generate()['User-Agent']
-    options.add_argument(f"user-agent={customUserAgent}")
-    return options
-
-def get_web_driver():
-    #driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=get_driver_options())
-    driver = webdriver.Chrome("/usr/bin/chromedriver", options=get_driver_options())
-    viewport_size = get_viewport_size(driver)
-    print("Viewport size:", viewport_size)
+    chrome_options.add_argument(f"user-agent={customUserAgent}")
+    #driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=chrome_options)
+    driver = webdriver.Chrome(
+        options=chrome_options
+    )
     return driver
 
-def get_viewport_size(driver):
-    size = driver.execute_script("return [window.innerWidth, window.innerHeight];")
-    return size
