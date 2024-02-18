@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+  rpdef-db:
+    image: mysql:8.0.17
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: rpdef
+    ports:
+      - "3308:3306"
+    volumes:
+      - ./db/db.sql:/docker-entrypoint-initdb.d/db.sql
+
+  rpdef-api:
+    build: ./rpdef-api
+    ports:
+      - "443:443"
+    depends_on:
+      - rpdef-db
+    environment:
+      MYSQL_HOST: rpdef-db
+      MYSQL_USER: root
+      MYSQL_PASSWORD: password
+      MYSQL_PORT: 3306
+      MYSQL_DB: rpdef
+
+  scrape-and-calculate:
+    build: ./scrape-and-calculate
+    ports:
+      - "8000:8000"    
+    depends_on:
+      - rpdef-db
+    environment:
+      MYSQL_HOST: rpdef-db
+      MYSQL_USER: root
+      MYSQL_PASSWORD: password
+      MYSQL_PORT: 3306
+      MYSQL_DB: rpdef

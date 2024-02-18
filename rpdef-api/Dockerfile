@@ -11,4 +11,4 @@ COPY . .
 CMD ["gunicorn", "--certfile", "fullchain.pem", "--keyfile", "privkey.pem", "--bind", "0.0.0.0:443", "app:app"]
 EXPOSE 80
 EXPOSE 443
-EXPOSE 5000dd
+EXPOSE 5000

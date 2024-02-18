@@ -1,5 +1,5 @@
-Flask
-Flask-Cors
-mysql-connector-python
-nba-api
-gunicorn
+Flask==2.0.1
+Flask-Cors==3.0.10
+mysql-connector-python==8.3.0
+nba-api==1.2
+gunicorn==20.1.0

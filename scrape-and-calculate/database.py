@@ -75,4 +75,3 @@ def update(traditional, lt10, gt10, player_positions, season):
                 val.append(player_api[0]['id'])
                 mycursor.execute(sql, val)
                 mydb.commit()
-    subprocess.run(['mysqldump', '-u', 'username', '-ppassword', 'rpdef', 'player', '--result-file=db.sql'])
