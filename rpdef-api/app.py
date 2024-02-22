@@ -47,7 +47,7 @@ def get_player():
 
 @app.get("/top/players")
 def get_top_players():
-    current_year = "22/23"
+    current_year = "23/24"
     try:
         mydb = connect_to_db()
         mycursor = mydb.cursor(dictionary=True)
